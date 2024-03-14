@@ -2,8 +2,10 @@ class ApplicationController < ActionController::Base
   include Pundit
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  # after_action :verify_authorized
-  
+
+  # added in from comments review 
+  # after_action :verify_authorized, except: :index
+  # after_action :verify_policy_scoped, only: :index
 
   protected
 
@@ -16,9 +18,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def user_not_authorized
-      flash[:alert] = "You are not authorized to perform this action."
-      
-      redirect_back fallback_location: root_url
-    end
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+
+    redirect_back fallback_location: root_url
+  end
 end

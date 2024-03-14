@@ -3,10 +3,6 @@ class PhotosController < ApplicationController
 
   before_action :ensure_current_user_is_owner, only: [:destroy, :update, :edit]
 
-  before_action :ensure_user_is_authorized, only: [:show]
-  # before_action {authorize @photo || Photo}
-
-  # this line is running error 
   def ensure_current_user_is_owner
     if current_user != @photo.owner
       redirect_back(fallback_location: root_url, alert: "You're not authorized for that")
@@ -80,12 +76,6 @@ class PhotosController < ApplicationController
   # Only allow a list of trusted parameters through.
   def photo_params
     params.require(:photo).permit(:image, :comments_count, :likes_count, :caption, :owner_id)
-  end
-
-  def ensure_user_is_authorized 
-    if !PhotoPolicy.new(current_user, @photo).show?
-      raise Pundit::NotAuthorizedError, "not allowed"
-    end
   end
 
 end

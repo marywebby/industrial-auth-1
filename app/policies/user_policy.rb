@@ -14,6 +14,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
+    true
+  end
+
+  def nav?
     user == current_user ||
      !user.private? || 
      user.followers.include?(current_user)

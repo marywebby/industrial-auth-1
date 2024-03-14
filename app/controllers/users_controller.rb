@@ -3,16 +3,6 @@ class UsersController < ApplicationController
 
   before_action {authorize @user || User}
 
-  def feed
-  end 
-
-  def discover
-  end
-
-  def liked
-  end
-  
-
   private
 
     def set_user

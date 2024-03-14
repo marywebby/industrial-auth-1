@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # added in from comments review 
-  after_action :verify_authorized, except: :index
+  after_action :verify_authorized, except: :index, unlesss: :devise_controller?
 
   protected
 
